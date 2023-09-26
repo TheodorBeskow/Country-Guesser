@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "ctime": "cpp",
+        "chrono": "cpp"
+    }
+}
