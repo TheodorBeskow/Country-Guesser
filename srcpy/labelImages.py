@@ -22,8 +22,8 @@ progress_thread.start()
 for file_name in file_names:
     with open(os.path.join(directory, file_name), 'r') as f:
         content = f.read()
-        file_data[file_name] = 'stop' in content
+        file_data[file_name] = 'regulatory--stop' in content
     processed_files += 1
 
-with open('annotation_file_data.json', 'w') as f:
+with open('annotation_file_data2.json', 'w') as f:
     json.dump(file_data, f)
