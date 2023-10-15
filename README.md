@@ -13,3 +13,6 @@ Pairing up and sorting the labeling of the images. devideImages.py also standard
 
 ~4 hours
 
+### v1.2
+![street view locations map](mdImages\streetViewLocations.png)
+
