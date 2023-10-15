@@ -15,4 +15,4 @@ Pairing up and sorting the labeling of the images. devideImages.py also standard
 
 ### v1.2
 ![street view locations map](mdImages\streetViewLocations.png)
-
+![plot world borders](mdImages\worldBorders.png)
