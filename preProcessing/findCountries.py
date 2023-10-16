@@ -17,12 +17,11 @@ def loadJson():
 def addPolygons(data):
     # Loop over each dictionary in the list
     for country in data:
-        before = len(country_polygons)
+        # before = len(country_polygons)
         # Extract the coordinates
         coordinates = country['geo_shape']['geometry']['coordinates']
 
         # Create polygons for each countr
-        print(len(coordinates))
         if isinstance(coordinates[0][0][0], list):
             for polygons in coordinates:
                 for border in polygons:
@@ -32,7 +31,7 @@ def addPolygons(data):
             for border in coordinates:
                 polygon = Polygon(border)
                 country_polygons.append([0, country['name'], polygon])
-        print(country["name"], len(country_polygons)-before)
+        # print(country["name"], len(country_polygons)-before)
 
 
 def identifyCountry(row):
@@ -45,12 +44,15 @@ def identifyCountry(row):
         for j in range(len(country_polygons)):
             freq, name, polygon = country_polygons[j]
             if polygon.contains(point):  # Adjust this threshold as needed
+                if name == "South Africa":
+                    closestCountry = [-1, j]
+                    continue
                 row['country'] = name  # Add the country information to the row
                 country_polygons[j][0] += 1
                 return
             closestCountry = min(closestCountry, [polygon.exterior.distance(point), j])
         country_polygons[closestCountry[1]][0] += 1
-        row["country"] = closestCountry[1]
+        row["country"] = country_polygons[closestCountry[1]][1]
                
 
 def findCountries():   
@@ -62,8 +64,8 @@ def findCountries():
     
     for i, row in enumerate(rows):
         identifyCountry(row)
-        # Print progress every 3 seconds
-        if time.time() - start_time > 3:
+        # Print progress every second
+        if time.time() - start_time > 1:
             print(f"Progress: {((i+1)/len(rows))*100}% locations processed")
             start_time = time.time()
             country_polygons.sort(key=lambda x:-x[0])
