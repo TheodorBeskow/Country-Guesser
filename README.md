@@ -20,11 +20,11 @@ Pairing up and sorting the labeling of the images. devideImages.py also standard
 
 ### v1.2
 Made a short script plotting out the coordinates from all the photospheres from the dataset. This is the result from that:
-![street view locations map](mdImages\streetViewLocations.png)
+![street view locations map](mdImages/streetViewLocations.png)
 
 
 In order to know what country it is from I will need to download the border data from all countries in the world and check what country the coordinate is in.
-![plot world borders](mdImages\worldBorders.png)
+![plot world borders](mdImages/worldBorders.png)
 
 
 The country's borders are made up of one or more polygons. In total there are 2010 of these polygons. To check in what country a coordinate is in I for every coordinate loop through the polygons and check if the coordinate is in that polygon. The country outline data although does not have infinite precision, because of this a location that is inside a country can count as not in any country. To solve this issue, whenever a coordinate is not in a country, it will be counted as in the closest country given by the closest polygon.
@@ -39,16 +39,24 @@ The second problem was that the code would take almost an hour to run on the dat
 Here are the plotted result:
 
 
-![street view locations with countries identified](mdImages\streetViewLocationsDevidedCountries.png)
+![street view locations with countries identified](mdImages/streetViewLocationsDevidedCountries.png)
 
 
 Here are the most popular countries:
 
 
-![amount of coordinates in different countries](mdImages\frequencyOfCountries.png)
+![amount of coordinates in different countries](mdImages/frequencyOfCountries.png)
 
 
 ~8 hours
 
+### v1.3
+
+Made a script that takes in the photospheres and transforms them into normal FOV images. The code also places the new images in folders train, test and val which all contain country folders with the corresponding image in them. 70% of the images are placed in the train folder, 15% in the val and the remaining 15% in the test subfolder. The code was very slow and would originally take almost 16 hours to run. To make it faster I used multithreading, with this the code only took about 4 hours to run. Here are some progress images:
+
+
+![A progress bar with some extra data](mdImages/prepareImagesProgressBar.png)
+
+![A completed progress bar with some extra data](mdImages/prepareImagesProgressBarDone.png)
 
 
