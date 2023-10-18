@@ -34,6 +34,13 @@ def process_image(row):
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
     obj.convert(outfile=output_image_file_path)
+    if not os.path.exists(f"{output_train_path}/{row['country']}"):
+        os.makedirs(f"{output_train_path}/{row['country']}")
+    if not os.path.exists(f"{output_test_path}/{row['country']}"):
+        os.makedirs(f"{output_test_path}/{row['country']}")
+    if not os.path.exists(f"{output_val_path}/{row['country']}"):
+        os.makedirs(f"{output_val_path}/{row['country']}")
+
 
 # Set the percentage of images to copy
 percentage_to_copy = 1
