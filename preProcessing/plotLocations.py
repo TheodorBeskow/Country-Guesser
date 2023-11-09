@@ -19,7 +19,10 @@ longitudes = {}
 colors = {}
 countries = {}
 
+i = 0
 for row in rows:
+    if i > 10000: break
+    i+=1
     lat = float(row['lat'])
     lon = float(row['lng'])
     country = row['country']

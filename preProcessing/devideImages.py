@@ -6,9 +6,9 @@ import time
 with open('annotation_file_data3.json', 'r') as f:
     data = json.load(f)
 
-src_dir = 'Data\\imagesVal'
-dst_dir_true = 'Data\\LabeledImages\\val\\stopSigns'
-dst_dir_false = 'Data\\LabeledImages\\val\\noStopSigns'
+src_dir = 'Data\\imagesTrain1'
+dst_dir_true = 'Data\\LabeledImages\\train\\stopSigns'
+dst_dir_false = 'Data\\LabeledImages\\train\\noStopSigns'
 
 standard_size = (128, 128)
 sinceTimeUpdate = time.time()

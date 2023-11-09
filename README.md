@@ -59,4 +59,4 @@ Made a script that takes in the photospheres and transforms them into normal FOV
 
 ![A completed progress bar with some extra data](mdImages/prepareImagesProgressBarDone.png)
 
-
+~3 hours
