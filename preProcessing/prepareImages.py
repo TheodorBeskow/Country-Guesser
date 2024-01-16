@@ -10,6 +10,7 @@ from tqdm import tqdm
 # Function to process a single image
 def process_image(row):
     # Find the image file
+    if row['country'] != "Mexico" and row['country'] != "Sweden" and row['country'] != "Poland": return
     image_files = glob.glob(f"{images_dir_path}/{row['id']}.*")
     if not image_files:
         return  # Skip this row if no matching files were found
@@ -52,9 +53,9 @@ output_test_path = 'Data/labledCountries/test'
 output_val_path = 'Data/labledCountries/val'
 output_train_path = 'Data/labledCountries/train'
 
-train_size = 0.7
-val_size = 0.15
-test_size = 0.15
+train_size = 0.8
+val_size = 0.10
+test_size = 0.10
 
 # Read the CSV file
 with open(csv_file_path, 'r') as file:

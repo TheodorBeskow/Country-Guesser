@@ -21,11 +21,13 @@ countries = {}
 
 i = 0
 for row in rows:
-    if i > 10000: break
+    # if i > 10000: break
     i+=1
     lat = float(row['lat'])
     lon = float(row['lng'])
     country = row['country']
+    if country != "Mexico" and country != "Sweden" and country != "Poland": continue
+    # if country != "Canada" and country != "United States of America": continue
 
     # If the country is not in the dictionaries, add it
     if country not in latitudes:
