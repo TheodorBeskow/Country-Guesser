@@ -5,14 +5,15 @@ import json
 import os
 import random
 
+options = Options()
+options.headless = True 
+driver = webdriver.Chrome(options=options)
+driver.get('https://timeguessr.com/roundone')  
+
 while True:
 
-    options = Options()
-    options.headless = True 
-    driver = webdriver.Chrome(options=options)
-    driver.get('https://timeguessr.com/roundone')  
 
-    time.sleep(random.uniform(5, 8))  
+    time.sleep(random.uniform(1, 2))  
 
     play_array_json = driver.execute_script("return sessionStorage.getItem('playArray');")
 
@@ -37,4 +38,9 @@ while True:
         json.dump(existing_data, f)
 
     print("Duplicates:", counter)
-    driver.quit()
+    
+    # Refresh the page
+    driver.refresh()
+
+# Quit the driver after the loop
+driver.quit()
