@@ -6,14 +6,18 @@ import os
 import random
 from multiprocessing import Pool
 from tqdm import tqdm
+from collections import defaultdict
+import math
 
-# Function to process a single image
+country_amount = defaultdict(int)
+PER_COUNTRY = 3000
+
 def process_image(row):
-    # Find the image file
-    if row['country'] != "Mexico" and row['country'] != "Sweden" and row['country'] != "Poland": return
+    
+    if row['country'] != "Denmark" and row['country'] != "Sweden" and row['country'] != "Norway" and row['country'] != "Poland" and row['country'] != "Finland" and row['country'] != "Mexico": return
+
     image_files = glob.glob(f"{images_dir_path}/{row['id']}.*")
-    if not image_files:
-        return  # Skip this row if no matching files were found
+    if not image_files: return
 
     image_file_path = image_files[0]
 
@@ -25,22 +29,28 @@ def process_image(row):
 
     obj = Defisheye(image_file_path, dtype=dtype, format=format, fov=fov, pfov=pfov)
 
+
     location = random.uniform(0, 1)
     output_dir_path = output_test_path if location<train_size+test_size else output_val_path
     if location<train_size: output_dir_path = output_train_path
 
-    # Convert the image and save it to a new file
-    output_image_file_path = f"{output_dir_path}/{row['country']}/{row['id']}.jpg"
-    dir_name = os.path.dirname(output_image_file_path)
-    if not os.path.exists(dir_name):
-        os.makedirs(dir_name)
-    obj.convert(outfile=output_image_file_path)
-    if not os.path.exists(f"{output_train_path}/{row['country']}"):
-        os.makedirs(f"{output_train_path}/{row['country']}")
-    if not os.path.exists(f"{output_test_path}/{row['country']}"):
-        os.makedirs(f"{output_test_path}/{row['country']}")
-    if not os.path.exists(f"{output_val_path}/{row['country']}"):
-        os.makedirs(f"{output_val_path}/{row['country']}")
+    amounts = random.uniform(math.floor(PER_COUNTRY/country_amount[row['country']]), math.floor(PER_COUNTRY/country_amount[row['country']]+1))
+    # print(row['country'],  PER_COUNTRY/country_amount[row['country']])
+
+    for am in range(math.floor(PER_COUNTRY/country_amount[row['country']]) if amounts>PER_COUNTRY/country_amount[row['country']] else math.floor(PER_COUNTRY/country_amount[row['country']]+1)):
+        output_image_file_path = f"{output_dir_path}/{row['country']}/{row['id']}Num{am}.jpg"
+        dir_name = os.path.dirname(output_image_file_path)
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name)
+        obj.convert(outfile=output_image_file_path)
+
+    # Ifall det är väldigt få!
+    # if not os.path.exists(f"{output_train_path}/{row['country']}"):
+    #     os.makedirs(f"{output_train_path}/{row['country']}")
+    # if not os.path.exists(f"{output_test_path}/{row['country']}"):
+    #     os.makedirs(f"{output_test_path}/{row['country']}")
+    # if not os.path.exists(f"{output_val_path}/{row['country']}"):
+    #     os.makedirs(f"{output_val_path}/{row['country']}")
 
 
 # Set the percentage of images to copy
@@ -61,6 +71,9 @@ test_size = 0.10
 with open(csv_file_path, 'r') as file:
     reader = csv.DictReader(file)
     rows = list(reader)
+
+for index in range(len(rows)):
+    country_amount[rows[index]['country']]+=1
 
 # Calculate the number of images to copy
 num_images_to_copy = int(len(rows) * percentage_to_copy)

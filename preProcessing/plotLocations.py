@@ -26,7 +26,7 @@ for row in rows:
     lat = float(row['lat'])
     lon = float(row['lng'])
     country = row['country']
-    if country != "Mexico" and country != "Sweden" and country != "Poland": continue
+    # if country != "Mexico" and country != "Sweden" and country != "Poland": continue
     # if country != "Canada" and country != "United States of America": continue
 
     # If the country is not in the dictionaries, add it
