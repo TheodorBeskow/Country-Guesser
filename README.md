@@ -8,14 +8,8 @@
 Basic NN with python and scraping down MNIST number dataset. The NN used 2 hidden layers with 128 and 64 nodes each. The activation function used in all layers is currently sigmoid. Able to get 95.4% accuracy on the data set with ~5 minutes of training.
 
 
-~5 hours
-
-
 ### v1.1
 Pairing up and sorting the labeling of the images. devideImages.py also standardizes the aspect ratio and lowers the quality of the images to make it easier for the AI to learn.
-
-
-~4 hours
 
 
 ### v1.2
@@ -47,9 +41,6 @@ Here are the most popular countries:
 
 ![amount of coordinates in different countries](mdImages/frequencyOfCountries.png)
 
-
-~8 hours
-
 ### v1.3
 
 Made a script that takes in the photospheres and transforms them into normal FOV images. The code also places the new images in folders train, test and val which all contain country folders with the corresponding image in them. 70% of the images are placed in the train folder, 15% in the val and the remaining 15% in the test subfolder. The code was very slow and would originally take almost 16 hours to run. To make it faster I used multithreading, with this the code only took about 4 hours to run. Here are some progress images:
@@ -59,4 +50,16 @@ Made a script that takes in the photospheres and transforms them into normal FOV
 
 ![A completed progress bar with some extra data](mdImages/prepareImagesProgressBarDone.png)
 
-~3 hours
+
+### v1.4
+
+Since some countries have more images than others, my model started to guess those countries much more just because they are more frequent. To fix this I added some images more than once and some not at all to keep an equal amount of images from all countries. 
+
+Without equal amount of images:
+
+![Without confusion matrix](mdImages/ConfusionMatrix2.png)
+
+
+With equal amount of images:
+
+![With confusion matrix](mdImages/ConfusionMatrix3.png)
