@@ -9,7 +9,7 @@ def get_random_color():
     return '#%02X%02X%02X' % (r(),r(),r())
 
 # Load the CSV file
-with open(r'Data\archive\images.csv', 'r') as file:
+with open(r'Data\archive\brazil.csv', 'r') as file:
     reader = csv.DictReader(file)
     rows = list(reader)
 
@@ -25,7 +25,7 @@ for row in rows:
     i+=1
     lat = float(row['lat'])
     lon = float(row['lng'])
-    country = row['country']
+    country = row['state']
     # if country != "Mexico" and country != "Sweden" and country != "Poland": continue
     # if country != "Canada" and country != "United States of America": continue
 
