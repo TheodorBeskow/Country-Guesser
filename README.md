@@ -57,9 +57,23 @@ Since some countries have more images than others, my model started to guess tho
 
 Without equal amount of images:
 
-![Without confusion matrix](mdImages/ConfusionMatrix2.png)
+![Without balancing](mdImages/ConfusionMatrix2.png)
 
 
 With equal amount of images:
 
-![With confusion matrix](mdImages/ConfusionMatrix3.png)
+![With balancing](mdImages/ConfusionMatrix3.png)
+
+### v1.5
+
+The model became overfit, only guessing the more frequent countries when a country has too little images compared to others. To compansate this i added more copies of some images to have an equal amount of images from each country. This although, created a brand new problem. Countries that originally only had a few images now will have alot images that are exactally the same. This will overfit the model to those images. To fix this issue I randomly changed the pan and zoom on all images so even the duplicate images are distinct. This solution will hopefully help the model find actual patterns to countries. I mostly faced these problems when I tried to guess what Brazilian state a image was taken in, in this case some states only had a handful images while others had over a thousand.  
+
+The following images are from the trained model with 15 different countries with 5000 images each.
+
+Preformance plot:
+
+![Preformance plot](mdImages/AccuracyPlot.png)
+
+Confusion matrix:
+
+![Confusion matrix](mdImages/ConfusionMatrix5.png)
