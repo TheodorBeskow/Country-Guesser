@@ -74,38 +74,42 @@ def panorama_to_plane(panorama_path, FOV, output_size, yaw, pitch):
 
     return output_image
 
-def ascii_state_name(state_name):
+def ascii_country_name(country_name):
     # Transliterate to closest ASCII representation
-    state_name = unidecode(state_name)
-    return state_name
+    country_name = unidecode(country_name)
+    return country_name
 
 country_amount = defaultdict(int)
-PER_COUNTRY = 1000
+PER_COUNTRY = 5000
+
+# using = ["United States of America", "France", "India", "Russian Federation", "Canada"]
+using = ["United States of America", "France", "India", "Russian Federation", "Canada", "Brazil", "Australia", "Italy", "Japan", "Spain", "Thailand", "U.K. of Great Britain and Northern Ireland", "Poland", "Sweden", "Mexico"]
 
 def process_image(row):
-    
-    # if row['state'] != "United States of America": return
-    # if row['state'] != "Denmark" and row['state'] != "Sweden" and row['state'] != "Norway" and row['state'] != "Poland" and row['state'] != "Finland" and row['state'] != "Mexico": return
+    if row['country'] not in using: return
+    # if row['country'] != "Portugal" and row['country'] != "Denmark": return
+    # if row['country'] != "Denmark" and row['country'] != "Sweden" and row['country'] != "Norway" and row['country'] != "Poland" and row['country'] != "Finland" and row['country'] != "Mexico": return
+
+
+    amounts = random.uniform(math.floor(PER_COUNTRY/country_amount[row['country']]), math.floor(PER_COUNTRY/country_amount[row['country']]+1))
+    realAmount = math.floor(PER_COUNTRY/country_amount[row['country']]) if amounts>PER_COUNTRY/country_amount[row['country']] else math.floor(PER_COUNTRY/country_amount[row['country']]+1)
+    if realAmount==0: return
 
     image_files = glob.glob(f"{images_dir_path}/{row['id']}.*")
     if not image_files: return
 
     image_file_path = image_files[0]
 
-
-
-
     location = random.uniform(0, 1)
     output_dir_path = output_test_path if location<train_size+test_size else output_val_path
     if location<train_size: output_dir_path = output_train_path
 
-    amounts = random.uniform(math.floor(PER_COUNTRY/country_amount[row['state']]), math.floor(PER_COUNTRY/country_amount[row['state']]+1))
-    # print(row['state'],  PER_COUNTRY/country_amount[row['state']])
-    for am in range(math.floor(PER_COUNTRY/country_amount[row['state']]) if amounts>PER_COUNTRY/country_amount[row['state']] else math.floor(PER_COUNTRY/country_amount[row['state']]+1)):
+    # print(row['country'],  PER_COUNTRY/country_amount[row['country']])
+    for am in range(realAmount):
         if am >= 5: break
-        # state = ascii_state_name(row['state'])
-        state = row['state']
-        output_image_file_path = f"{output_dir_path}/{state}/{row['id']}Num{am}.jpg"
+        # country = ascii_country_name(row['country'])
+        country = row['country']
+        output_image_file_path = f"{output_dir_path}/{country}/{row['id']}Num{am}.jpg"
 
         dir_name = os.path.dirname(output_image_file_path)
         if not os.path.exists(dir_name):
@@ -113,27 +117,27 @@ def process_image(row):
                 os.makedirs(dir_name)
             except:
                 pass
-        output_image = panorama_to_plane(image_file_path, 110+random.randint(0, 20), (256, 256), 180+70+random.randint(0, 40), 80+random.randint(0, 30))
+        output_image = panorama_to_plane(image_file_path, 110+random.randint(0, 20), (128, 128), 180+70+random.randint(0, 40), 80+random.randint(0, 30))
         output_image.save(output_image_file_path)
 
     # Ifall det är väldigt få!
-    # if not os.path.exists(f"{output_train_path}/{row['state']}"):
-    #     os.makedirs(f"{output_train_path}/{row['state']}")
-    # if not os.path.exists(f"{output_test_path}/{row['state']}"):
-    #     os.makedirs(f"{output_test_path}/{row['state']}")
-    # if not os.path.exists(f"{output_val_path}/{row['state']}"):
-    #     os.makedirs(f"{output_val_path}/{row['state']}")
+    # if not os.path.exists(f"{output_train_path}/{row['country']}"):
+    #     os.makedirs(f"{output_train_path}/{row['country']}")
+    # if not os.path.exists(f"{output_test_path}/{row['country']}"):
+    #     os.makedirs(f"{output_test_path}/{row['country']}")
+    # if not os.path.exists(f"{output_val_path}/{row['country']}"):
+    #     os.makedirs(f"{output_val_path}/{row['country']}")
 
 
 # Set the percentage of images to copy
 percentage_to_copy = 1
 
 # Set the paths to your files
-csv_file_path = 'Data/archive/brazil.csv'
+csv_file_path = 'Data/archive/images.csv'
 images_dir_path = 'Data/archive/images'
-output_test_path = 'Data/labledBrazil/test'
-output_val_path = 'Data/labledBrazil/val'
-output_train_path = 'Data/labledBrazil/train'
+output_test_path = 'Data/labledCountries128/test'
+output_val_path = 'Data/labledCountries128/val'
+output_train_path = 'Data/labledCountries128/train'
 
 train_size = 0.8
 val_size = 0.10
@@ -145,7 +149,7 @@ with open(csv_file_path, 'r', encoding='utf-8') as file:
     rows = list(reader)
 
 for index in range(len(rows)):
-    country_amount[rows[index]['state']]+=1
+    country_amount[rows[index]['country']]+=1
 
 # Calculate the number of images to copy
 num_images_to_copy = int(len(rows) * percentage_to_copy)
