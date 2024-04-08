@@ -19,8 +19,11 @@ longitudes = {}
 colors = {}
 countries = {}
 
+using = ["United States of America", "France", "India", "Russian Federation", "Canada", "Brazil", "Australia", "Italy", "Japan", "Spain", "Thailand", "U.K. of Great Britain and Northern Ireland", "Poland", "Sweden", "Mexico"]
+
 i = 0
 for row in rows:
+    if row['country'] not in using: continue
     # if i > 10000: break
     i+=1
     lat = float(row['lat'])
