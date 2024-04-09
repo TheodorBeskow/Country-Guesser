@@ -1,6 +1,45 @@
 # NN
 
 
+---
+
+## Running the Image Classifier with Map Visualization
+
+This application uses tkinter for GUI, a trained TensorFlow Keras model for image classification, and Cartopy for map visualization. The application displays images of countries and their corresponding predictions, along with their locations marked on a world map.
+
+### Prerequisites
+
+- Python 3.x installed on your system.
+- pip package manager installed.
+
+### Installation
+
+1. Clone or download the repository to your local machine.
+
+2. Navigate to the project directory in your terminal.
+
+3. Install the required Python packages using the following command:
+   
+   ```
+   pip install -r requirements.txt
+   ```
+
+### Running the Application
+
+1. After installing the required dependencies, execute the following command in your terminal to run the application:
+
+   ```
+   python srcpy\ShowGuesses.py
+   ```
+
+2. The application window will appear, displaying images of countries and their predictions. You can navigate through the images using the "Next" and "Previous" buttons, or enable auto play.
+
+3. The map on the right side of the window shows the location of the country corresponding to the displayed image.
+
+4. Click the "Quit" button or close the window to exit the application.
+
+<br></br>
+
 ## Logging
 
 
@@ -77,3 +116,5 @@ Preformance plot:
 Confusion matrix:
 
 ![Confusion matrix](mdImages/ConfusionMatrix5.png)
+
+### v1.6
