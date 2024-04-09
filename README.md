@@ -1,4 +1,4 @@
-# NN
+# Country Guesser
 
 
 ---
@@ -118,3 +118,12 @@ Confusion matrix:
 ![Confusion matrix](mdImages/ConfusionMatrix5.png)
 
 ### v1.6
+
+I have added some tools and scripts to show what the model is doing. Firstly the gg.ipynb contains a script that can visualize what in the image was important for the models decision. This image shows that the model used the line to correctly guess that the country was Mexico:
+
+
+![Heatmap image](mdImages/ModelPred2.png)
+
+
+Secondly I added an application that shows a random image from the test dataset and compares what the model guessed on that image. This application allows the user to iterate through the images but also contains a feature to autoplay. More information about this application and how to use it can be found in the "Running the Image Classifier with Map Visualization" part of the readme.
+
