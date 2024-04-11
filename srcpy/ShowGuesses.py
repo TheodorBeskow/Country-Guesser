@@ -129,6 +129,10 @@ root.attributes('-fullscreen', True)
 # Set the background color to dark mode
 root.configure(background='black')
 
+# Title of the application
+title_label = tk.Label(root, text="Country Guesser", font=('Arial', 36), fg='white', bg='black')
+title_label.pack(side=tk.TOP, fill=tk.X, padx=20, pady=20)
+
 # Create a frame for everything
 main_frame = tk.Frame(root, bg='black')
 main_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)  # Place the frame on the left side of the window
